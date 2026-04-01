@@ -20,6 +20,12 @@ jobs:
         extensions: mbstring, pdo, sqlite, bcmath, intl
         coverage: none
 
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: 20
+        cache: 'npm'
+
     - name: Copy .env
       run: cp .env.example .env
 
@@ -46,6 +52,9 @@ jobs:
 
     - name: Dump Composer autoload
       run: composer dump-autoload
+
+    - name: Install Node dependencies
+      run: npm install
 
     - name: Generate application key
       run: php artisan key:generate
