@@ -12,8 +12,8 @@ class SiswaController extends Controller
 {
     public function index()
     {
-        $siswas = Siswa::with('kelas')->get();
-        return view('siswa.dashboard', compact('siswas'));
+        $siswa = Siswa::with('kelas')->get();
+        return view('siswa.index', compact('siswa'));
     }
 
     public function create()

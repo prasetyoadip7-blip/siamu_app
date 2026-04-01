@@ -8,7 +8,6 @@
     min-height:70px;
 }
 
-/* Brand */
 .brand-area{
     display:flex;
     align-items:center;
@@ -32,7 +31,6 @@
     color:rgba(255,255,255,0.8);
 }
 
-/* Jam */
 .clock-box{
     background:rgba(255,255,255,0.15);
     padding:6px 14px;
@@ -41,7 +39,6 @@
     font-size:13px;
 }
 
-/* Icon */
 .icon-modern{
     color:white !important;
     font-size:18px;
@@ -54,7 +51,6 @@
     background:rgba(255,255,255,0.15);
 }
 
-/* Profile */
 .profile-modern{
     display:flex;
     align-items:center;
@@ -79,7 +75,6 @@
     font-size:14px;
 }
 
-/* Dropdown */
 .dropdown-modern{
     border-radius:12px;
     border:none;
@@ -93,7 +88,6 @@
 
 <div class="container-fluid">
 
-<!-- BRAND -->
 <div class="brand-area">
 
 <img src="https://cdn-icons-png.flaticon.com/512/3135/3135755.png" class="brand-logo">
@@ -115,7 +109,6 @@
 
 <ul class="navbar-nav ms-auto align-items-center">
 
-<!-- JAM -->
 <li class="nav-item me-3">
 
 <div class="clock-box">
@@ -131,7 +124,6 @@
 </li>
 
 
-<!-- NOTIF -->
 <li class="nav-item dropdown me-2">
 
 <a class="nav-link icon-modern" data-bs-toggle="dropdown">
@@ -155,7 +147,6 @@
 </li>
 
 
-<!-- PROFIL -->
 <li class="nav-item dropdown">
 
 <a class="nav-link profile-modern" data-bs-toggle="dropdown">
@@ -165,7 +156,7 @@
 <div class="profile-info">
 
 <span>Selamat datang</span>
-<strong>Administrator</strong>
+<strong>{{ auth()->user()->name }}</strong>
 
 </div>
 
@@ -176,16 +167,16 @@
 
 <li class="dropdown-header text-center">
 
-<strong>Administrator</strong><br>
-<small>admin@siamu.ac.id</small>
+<strong>{{ auth()->user()->name }}</strong><br>
+<small>{{ auth()->user()->email }}</small>
 
 </li>
 
 <li><hr class="dropdown-divider"></li>
 
 <li>
-<a class="dropdown-item">
-<i class="fa fa-user"></i> Profil
+<a href="{{ route('profile') }}" class="dropdown-item">
+<i class="fas fa-user"></i> Profil
 </a>
 </li>
 
@@ -216,7 +207,6 @@ Logout
 </ul>
 
 </li>
-
 
 </ul>
 

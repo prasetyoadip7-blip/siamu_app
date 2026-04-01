@@ -9,10 +9,12 @@ use App\Http\Controllers\GuruController;
 use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\JadwalController;
 use App\Http\Controllers\NilaiController;
+use App\Http\Controllers\ProfileController;
 
 use App\Http\Controllers\Admin\DashboardController as AdminDashboard;
 use App\Http\Controllers\Guru\DashboardController as GuruDashboard;
 use App\Http\Controllers\Siswa\DashboardController as SiswaDashboard;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -33,7 +35,7 @@ Route::get('/', function () {
 
 /*
 |--------------------------------------------------------------------------
-| GLOBAL DASHBOARD (UNTUK TEST LARAVEL)
+| GLOBAL DASHBOARD
 |--------------------------------------------------------------------------
 */
 
@@ -58,6 +60,21 @@ Route::get('/dashboard', function () {
     }
 
 })->middleware('auth')->name('dashboard');
+
+
+/*
+|--------------------------------------------------------------------------
+| PROFILE USER
+|--------------------------------------------------------------------------
+*/
+
+Route::middleware(['auth'])->group(function () {
+
+    Route::get('/profile', [ProfileController::class,'index'])->name('profile');
+
+    Route::post('/profile/update', [ProfileController::class,'update'])->name('profile.update');
+
+});
 
 
 /*
