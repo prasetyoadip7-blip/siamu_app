@@ -23,23 +23,31 @@ jobs:
     - name: Copy .env
       run: cp .env.example .env
 
-    - name: Create SQLite DB
+    - name: Create SQLite database
       run: |
         mkdir -p database
         touch database/database.sqlite
 
-    - name: Set DB config
+    - name: Configure database connection
       run: |
         echo "DB_CONNECTION=sqlite" >> .env
         echo "DB_DATABASE=$(pwd)/database/database.sqlite" >> .env
 
-    - name: Install dependencies
+    - name: Cache Composer dependencies
+      uses: actions/cache@v3
+      with:
+        path: vendor
+        key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-composer-
+
+    - name: Install Composer dependencies
       run: composer install --no-interaction --prefer-dist --optimize-autoloader
 
-    - name: Dump autoload
+    - name: Dump Composer autoload
       run: composer dump-autoload
 
-    - name: Generate key
+    - name: Generate application key
       run: php artisan key:generate
 
     - name: Run migrations
