@@ -10,13 +10,8 @@ jobs:
   laravel-tests:
     runs-on: ubuntu-latest
 
-    services:
-      sqlite:
-        image: nouchka/sqlite3
-
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
+    - uses: actions/checkout@v4
 
     - name: Setup PHP
       uses: shivammathur/setup-php@v2
@@ -28,6 +23,16 @@ jobs:
     - name: Copy .env
       run: cp .env.example .env
 
+    - name: Create SQLite DB
+      run: |
+        mkdir -p database
+        touch database/database.sqlite
+
+    - name: Set DB config
+      run: |
+        echo "DB_CONNECTION=sqlite" >> .env
+        echo "DB_DATABASE=$(pwd)/database/database.sqlite" >> .env
+
     - name: Install dependencies
       run: composer install --no-progress --prefer-dist --optimize-autoloader
 
@@ -35,7 +40,7 @@ jobs:
       run: php artisan key:generate
 
     - name: Run migrations
-      run: php artisan migrate --env=testing
+      run: php artisan migrate --force
 
     - name: Run tests
       run: php artisan test
