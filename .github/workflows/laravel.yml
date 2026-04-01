@@ -58,8 +58,8 @@ jobs:
     - name: Install Node dependencies
       run: npm install
 
-    - name: Build assets
-      run: npm run prod
+    - name: Build frontend assets
+      run: npm run build
 
     - name: Generate application key
       run: php artisan key:generate
